@@ -24,10 +24,10 @@ export type User = {
   };
 };
 
-export type Response = User[];
+export type Response = User;
 
 async function fetchUsers(): Promise<Response> {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
 
   return await response.json();
 }
@@ -42,6 +42,25 @@ export function useUsers<T extends any>(select?: SelectFn<T>) {
 /**
  * Selectors to get deeply nested data from `["users", "all"]`
  */
-// export const firstName = () => {
-//   const selectFn: SelectFn<string> = (data) =>
-// };
+const selectNameSelectorFn: SelectFn<string> = (data) => data.name;
+const selectUserNameSelectorFn: SelectFn<string> = (data) => data.username;
+const selectFullAddressNameSelectorFn: SelectFn<string> = (data) =>
+  `${data.address.city}, ${data.address.street} ${data.address.zipcode}`;
+
+export const useName = () => {
+  const { data } = useUsers(selectNameSelectorFn);
+
+  return data;
+};
+
+export const useUserName = () => {
+  const { data } = useUsers(selectUserNameSelectorFn);
+
+  return data;
+};
+
+export const useFullAddress = () => {
+  const { data } = useUsers(selectFullAddressNameSelectorFn);
+
+  return data;
+};
