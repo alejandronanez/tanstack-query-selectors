@@ -1,37 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-
-const wait = async () => new Promise((resolve) => setTimeout(resolve, 500));
-
-export type UserShape = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
-};
-
-async function fetchUsers(): Promise<UserShape> {
-  await wait();
-  const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
-
-  return await response.json();
-}
+import { fetchUsers } from "./utils";
+import { UserShape } from "./types";
 
 type SelectFn<T extends any> = (data: UserShape) => T;
 export function useUsers<T extends any>(select?: SelectFn<T>) {

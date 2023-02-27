@@ -1,6 +1,7 @@
-import { useUsers, type UserShape } from "./useUsers";
-import { User } from "./User";
 import { useQueryClient } from "@tanstack/react-query";
+import { useUsers } from "./useUsers";
+import { User } from "./User";
+import { UserShape } from "./types";
 
 export function Users() {
   const usersQuery = useUsers<UserShape>();
