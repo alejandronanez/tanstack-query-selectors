@@ -1,5 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
+const wait = async () => new Promise((resolve) => setTimeout(resolve, 500));
+
 export type UserShape = {
   id: number;
   name: string;
@@ -25,6 +27,7 @@ export type UserShape = {
 };
 
 async function fetchUsers(): Promise<UserShape> {
+  await wait();
   const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
 
   return await response.json();
