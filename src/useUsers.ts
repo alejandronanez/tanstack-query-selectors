@@ -6,6 +6,13 @@ type SelectFn<T extends any> = (data: UserShape) => T;
 export function useUsers<T extends any>(select?: SelectFn<T>) {
   return useQuery<UserShape, unknown, T>(["users", "all"], fetchUsers, {
     ...(select && { select }),
+    /**
+     * `user` data won't change often, so it makes sense to set the stale time
+     * to 1 minute. This will prevent race conditions between the first time we
+     * call `useUsers` in `User.tsx` and when we call it through
+     * `useName|useUserName|useFullAddress` in `{Name|UserName|FullAddress}.tsx`
+     */
+    staleTime: 60_000,
   });
 }
 
