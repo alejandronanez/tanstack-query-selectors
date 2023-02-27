@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-export type User = {
+export type UserShape = {
   id: number;
   name: string;
   username: string;
@@ -24,17 +24,15 @@ export type User = {
   };
 };
 
-export type Response = User;
-
-async function fetchUsers(): Promise<Response> {
+async function fetchUsers(): Promise<UserShape> {
   const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
 
   return await response.json();
 }
 
-type SelectFn<T extends any> = (data: Response) => T;
+type SelectFn<T extends any> = (data: UserShape) => T;
 export function useUsers<T extends any>(select?: SelectFn<T>) {
-  return useQuery<Response, unknown, T>(["users", "all"], fetchUsers, {
+  return useQuery<UserShape, unknown, T>(["users", "all"], fetchUsers, {
     ...(select && { select }),
   });
 }

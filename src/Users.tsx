@@ -1,9 +1,9 @@
-import { useUsers, type Response } from "./useUsers";
+import { useUsers, type UserShape } from "./useUsers";
 import { User } from "./User";
 import { useQueryClient } from "@tanstack/react-query";
 
 export function Users() {
-  const usersQuery = useUsers<Response>();
+  const usersQuery = useUsers<UserShape>();
 
   if (usersQuery.isLoading) {
     return <div>Loading user</div>;
