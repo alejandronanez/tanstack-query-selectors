@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-type User = {
+export type User = {
   id: number;
   name: string;
   username: string;
@@ -24,12 +24,24 @@ type User = {
   };
 };
 
-async function fetchUsers(): Promise<User[]> {
+export type Response = User[];
+
+async function fetchUsers(): Promise<Response> {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
 
   return await response.json();
 }
 
-export function useUsers() {
-  return useQuery(["users", "all"], fetchUsers);
+type SelectFn<T extends any> = (data: Response) => T;
+export function useUsers<T extends any>(select?: SelectFn<T>) {
+  return useQuery<Response, unknown, T>(["users", "all"], fetchUsers, {
+    ...(select && { select }),
+  });
 }
+
+/**
+ * Selectors to get deeply nested data from `["users", "all"]`
+ */
+// export const firstName = () => {
+//   const selectFn: SelectFn<string> = (data) =>
+// };
