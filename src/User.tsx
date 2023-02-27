@@ -7,24 +7,31 @@ export function User() {
       <Name />
       <UserName />
       <FullAddress />
+      <hr />
     </div>
   );
 }
 
 function Name() {
-  const name = useName();
+  const { data, isFetching } = useName();
 
-  return <div>{name}</div>;
+  if (isFetching) {
+    return (
+      <div>getting fresh data - must show `loading` state for `name`...</div>
+    );
+  }
+
+  return <div>{data}</div>;
 }
 
 function UserName() {
-  const userName = useUserName();
+  const { data } = useUserName();
 
-  return <div>{userName}</div>;
+  return <div>{data}</div>;
 }
 
 function FullAddress() {
-  const fullAddress = useFullAddress();
+  const { data } = useFullAddress();
 
-  return <div>{fullAddress}</div>;
+  return <div>{data}</div>;
 }

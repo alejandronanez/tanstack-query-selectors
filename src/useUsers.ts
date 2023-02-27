@@ -47,20 +47,6 @@ const selectUserNameSelectorFn: SelectFn<string> = (data) => data.username;
 const selectFullAddressNameSelectorFn: SelectFn<string> = (data) =>
   `${data.address.city}, ${data.address.street} ${data.address.zipcode}`;
 
-export const useName = () => {
-  const { data } = useUsers(selectNameSelectorFn);
-
-  return data;
-};
-
-export const useUserName = () => {
-  const { data } = useUsers(selectUserNameSelectorFn);
-
-  return data;
-};
-
-export const useFullAddress = () => {
-  const { data } = useUsers(selectFullAddressNameSelectorFn);
-
-  return data;
-};
+export const useName = () => useUsers(selectNameSelectorFn);
+export const useUserName = () => useUsers(selectUserNameSelectorFn);
+export const useFullAddress = () => useUsers(selectFullAddressNameSelectorFn);
