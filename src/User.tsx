@@ -25,7 +25,11 @@ function Name() {
 }
 
 function UserName() {
-  const { data } = useUserName();
+  const { data, isLoading } = useUserName();
+
+  if (isLoading) {
+    return <div>loading - shown only on first render</div>;
+  }
 
   return <div>{data}</div>;
 }
